@@ -1,5 +1,5 @@
 {
-  "name": "drawApp",
+  "name": "draw-app",
   "private": true,
   "scripts": {
     "build": "turbo build",
