@@ -1,1 +1,1 @@
-{"root":["./src/index.ts"],"version":"5.7.3"}
+{"root":["./src/index.ts","./src/api/controller.ts","./src/api/route.config.ts","./src/api/service.ts","./src/middleware/middleware.ts"],"version":"5.7.3"}

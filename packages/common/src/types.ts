@@ -11,7 +11,7 @@ export const createUserSchema = z.object({
 })
 
 export const SiginSchema = z.object({
-    username: z.string().min(3).max(255),
+    email: z.string().email(),
     password: z.string()
 })
 

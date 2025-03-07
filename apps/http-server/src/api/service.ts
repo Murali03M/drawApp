@@ -6,17 +6,17 @@ import { prismaClient } from "@repo/db/prisma";
 
 export const LoginService = async (event:any) => {
     try {
-        if (!event.username) {
+        if (!event.email) {
             return {
                 success: false,
-                message: "Username is required"
+                message: "email is required"
             };
         }
 
         // Find user in database
         const data = await prismaClient.user.findUnique({
             where: {
-                username: event.username
+                email: event.email
             }
         });
 
@@ -38,13 +38,13 @@ export const LoginService = async (event:any) => {
 
 
         // Generate JWT token
-        const token = jwt.sign({ userId: data.username}, JWT_SECRET);
+        const token = jwt.sign({ userId: data.email}, JWT_SECRET);
 
         return {
             success: true,
             message: "Login Successful",
             data: {
-                userId: data.username,
+                userId: data.email,
                 token: token
             }
         };
@@ -60,37 +60,49 @@ export const LoginService = async (event:any) => {
 
 
 export const RegisterService = async (event: any) => {
-     
-    const data = await prismaClient.user.create({
-        data: {
-            name: event.name,
-            password: event.password,
-            email: event.email,
-            photo: event.photo,
 
-        },
+    try {
+        const data = await prismaClient.user.create({
+            data: {
+                name: event.name,
+                password: event.password,
+                email: event.email,
+                photo: event.photo,
+    
+            },
+    
+        });
+    
+        if (!data) {
+            return {
+                success: false,
+                message: "Internal Server Error"
+            }
+        }
+    
+        const token = jwt.sign({ userId: data.email }, JWT_SECRET);
+    
+    
+         
+        return {
+            success: true,
+            message: "Register Successful",
+            data: {
+                email: data.email,
+                name: data.name,
+                token: token
+            }
+        }
+        
+    } catch (error) {
 
-    });
-
-    if(!data){
         return {
             success: false,
-            message: "Internal Server Error"
+            message: "Internal Server Error",
+            status: 500
         }
     }
-
-    const token = jwt.sign({ userId: data.username}, JWT_SECRET);
-
-
      
-    return {
-        success: true,
-        message: "Register Successful",
-        data: {
-            userId: data.username,
-            token: token
-        }
-    }
 }
 
 
