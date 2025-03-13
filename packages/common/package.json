@@ -1,16 +1,21 @@
 {
   "name": "@repo/common",
   "version": "1.0.0",
-   "type": "module",
-  "main": "index.js",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*"
   },
   "exports": {
-    "./types": "./src/types.ts"
+    "./types": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/types.js"
+    }
   },
   "keywords": [],
   "author": "",

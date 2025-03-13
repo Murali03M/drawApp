@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { JwtPayload } from "jsonwebtoken";
-import { JWT_SECRET } from "@repo/backend-common/config";
-import  jwt  from "jsonwebtoken";
+import { JWT_SECRET } from "@repo/backend-common";
+import jwt from "jsonwebtoken";
+
 
 interface CustomRequest extends Request {
     userId?: string;

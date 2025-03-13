@@ -17,9 +17,7 @@ export const SiginSchema = z.object({
 
 export const createRoomSchema = z.object({
 
-    name: z.string().min(3).max(255),
-    slug: z.string().min(3).max(255),
-    adminId: z.string()
+    slug: z.string().min(3).max(255)
 
 
 })

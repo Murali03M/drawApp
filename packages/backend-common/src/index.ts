@@ -1,3 +1,5 @@
+const JWT_SECRET = process.env.JWT_SECRET || "jwt-secret-dev";
 
-
-export const JWT_SECRET = "jwt-secret";
+export { JWT_SECRET };
+    
+    

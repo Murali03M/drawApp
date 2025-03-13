@@ -1,53 +1,67 @@
+import express from "express";
 import { Router, Router as ExpressRouter, Request, Response } from "express";
-import { crateRoomController, LoginController, RegisterController } from "./controller";
-import { middleware } from "../middleware/middleware";
-import { createRoomSchema, createUserSchema, SiginSchema } from "@repo/common/types";
+import {
+  crateRoomController,
+  LoginController,
+  RegisterController,
+} from "./controller.js";
+import { middleware } from "../middleware/middleware.js";
+import {
+  createRoomSchema,
+  createUserSchema,
+  SiginSchema,
+} from "@repo/common/types";
+
+
+interface CustomRequest extends Request {
+    userId?: string;
+}
+
 
 export const route: ExpressRouter = Router();
 
+route.post("/login", async (req: Request, res: Response) => {
+  const parasedData = SiginSchema.safeParse(req.body);
 
-route.post("/login", async (req: Request, res: Response) => {  
+  if (!parasedData.success) {
+    res.status(400).json({ message: "incorect inputs" });
+    return;
+  }
 
-    const parasedData = SiginSchema.safeParse(req.body);
+  const result = await LoginController(parasedData.data);
 
-    if(!parasedData.success){
-        res.status(400).json({ message:"incorect inputs"})
-        return;
-    }
-
-    const result = await LoginController(parasedData.data);
-    
-     res.send(result);
-   
+  res.json(result);
 });
-    
 
 route.post("/register", async (req: Request, res: Response) => {
+  const parasedData = createUserSchema.safeParse(req.body);
 
-    const parasedData = SiginSchema.safeParse(req.body);
+  if (!parasedData.success) {
+    res.status(400).json({ message: "incorect inputs" });
+    return;
+  }
 
-    if(!parasedData.success){
-        res.status(400).json({ message:"incorect inputs"})
-        return;
-    }
-
-    const result = await RegisterController(parasedData.data);
-    return result;
- 
+  const result = await RegisterController(parasedData.data);
+  res.json(result);
 });
 
+route.get("/createRoom", middleware, async (req: CustomRequest, res: Response) => {
+    const parsedDatadata = createRoomSchema.safeParse(req.body);
 
-route.get("/createRoom", middleware, async (req: Request, res: Response) => {
+    const userId: string = req.userId as string; 
 
-    const data = createRoomSchema.safeParse(req.body);
 
-    if(!data.success){
-        res.status(400).send(data.error);
-        return;
-    }
+    console.log(parsedDatadata);
     
-    const result = await crateRoomController();
+    
 
 
-    res.send(result);
-}); 
+  if (!parsedDatadata.success) {
+    res.status(400).send(parsedDatadata.error);
+    return;
+  }
+
+  const result = await crateRoomController(parsedDatadata.data, userId);
+
+  res.send(result);
+});

@@ -1,6 +1,7 @@
 {
   "name": "ws-server",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "npm run build && npm run start",
@@ -15,7 +16,7 @@
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "@types/ws": "^8.5.14",
-     "@repo/backend-common": "workspace:*"
+    "@repo/backend-common": "workspace:*"
   },
   "keywords": [],
   "author": "",

@@ -1,34 +1,16 @@
-import { crateRoomService, LoginService, RegisterService } from "./service";
+import { crateRoomService, LoginService, RegisterService } from "./service.js";
 
-
-
-
-
-
-export const LoginController = (event: any) => {
-    
-    const result = LoginService(event);
-
-    return result;
-
-    console.log(event);
-
-}
-
-export const RegisterController = (event: any) => {
-
-    const result = RegisterService(event);
-    
-    console.log(event);
-}
-
-export const crateRoomController = async() => {
-
-    const result = await crateRoomService();
-    
-    return result;
-
-    
+export const LoginController = async (event: any) => {
+  const result = await LoginService(event);
+  return result;
 };
 
+export const RegisterController = async (event: any) => {
+  const result = await RegisterService(event);
+  return result;
+};
 
+export const crateRoomController = async (event: any, userId: string) => {
+  const result = await crateRoomService(event, userId);
+  return result;
+};
