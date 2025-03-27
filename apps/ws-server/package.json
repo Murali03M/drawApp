@@ -10,13 +10,16 @@
   },
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.8",
+    "bullmq": "^5.43.1",
+    "ioredis": "^5.6.0",
     "jsonwebtoken": "^9.0.2",
+    "pg": "^8.14.0",
     "ws": "^8.18.0"
   },
   "devDependencies": {
+    "@repo/backend-common": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@types/ws": "^8.5.14",
-    "@repo/backend-common": "workspace:*"
+    "@types/ws": "^8.5.14"
   },
   "keywords": [],
   "author": "",

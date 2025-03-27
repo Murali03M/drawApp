@@ -1,4 +1,4 @@
-import { crateRoomService, LoginService, RegisterService } from "./service.js";
+import { crateRoomService, getRoomService, getSlugService, LoginService, RegisterService } from "./service.js";
 
 export const LoginController = async (event: any) => {
   const result = await LoginService(event);
@@ -14,3 +14,15 @@ export const crateRoomController = async (event: any, userId: string) => {
   const result = await crateRoomService(event, userId);
   return result;
 };
+
+export const getRoomController = async (roomId: string) => {
+  const result = await getRoomService(roomId);
+  return result;
+};
+
+
+export const getSlugController = async (slug: string) => {
+  const result = await getSlugService(slug);
+  return result;
+}
+

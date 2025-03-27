@@ -111,3 +111,33 @@ export const crateRoomService = async (event: any, userId: string) => {
     roomId: data.id,
   };
 };
+
+export const getRoomService = async (roomId: string) => {
+  const data = await prismaClient.chat.findMany({
+    where: {
+      roomId: roomId,
+    },
+    take: 50,
+    orderBy: [{
+      createdAt: "desc"
+    }],
+  });
+
+  return {
+    success: true,
+    data: data,
+  };
+};
+
+export const getSlugService = async (slug: string) => {
+  const data = await prismaClient.room.findFirst({
+    where: {
+      slug,
+    },
+  });
+
+  return {
+    success: true,
+    data: data,
+  };
+};
